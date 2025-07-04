@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 from gtts import gTTS
 import os
 import base64
