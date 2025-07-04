@@ -68,14 +68,13 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 
-# Add your new background image
+# 🌄 Set Background
 add_bg_from_local("animated-laughing-elements-flat-cartoon-style-hd-footage-funny-joke-sense-of-humor-positive-feeling-color-illustration-on-white-background-with-alpha-channel-transparency-for-animation-video.jpg")
 
 # -------------------------
 # App Setup
 # -------------------------
 st.set_page_config(page_title="🤣 Joke Generator", layout="centered")
-translator = Translator()
 
 # -------------------------
 # App Layout
@@ -111,15 +110,18 @@ if st.button("😂 Tell Me a Joke"):
     st.markdown("### 🗣️ Original Joke:")
     st.success(joke)
 
+    # 🔊 Speak original joke
     speak_text(joke)
 
+    # 🌍 Translate joke if not English
     if language[1] != "en":
         try:
-            translated = translator.translate(joke, dest=language[1]).text
+            translated = GoogleTranslator(source='auto', target=language[1]).translate(joke)
             st.markdown("### 🌍 Translated Joke:")
             st.info(translated)
-        except:
-            st.error("❌ Translation failed.")
+            speak_text(translated)
+        except Exception as e:
+            st.error(f"❌ Translation failed: {e}")
 else:
     st.info("Click above to hear and read a joke!")
 
